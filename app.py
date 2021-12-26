@@ -4,7 +4,7 @@ import numpy as np
 from zipfile import ZipFile
 import plotly.express as px
 
-st.title("Glow Baby Data")
+st.title("Glow Baby Data Dashboard")
 
 file = st.file_uploader('Upload gzip export')
 
@@ -28,6 +28,10 @@ if file:
             )
             df['Diaper time'] = pd.to_datetime(df['Diaper time'])
 
+            # totals
+            num_nappies = df.count()['Diaper time']
+            st.text(f'Total nappies changed: {num_nappies}')
+
             # plot nappies per day
             df['day'] = df['Diaper time'].dt.round('D')
             dfg = df.groupby('day').count()
@@ -45,7 +49,7 @@ if file:
             dfg = df.groupby('hour').count()
             fig = px.bar(
                 dfg[['Diaper time']],
-                labels={'hour': 'Hour', 'value':'Count'},
+                labels={'hour': 'Hour of the Day', 'value':'Count'},
                 title='Changes Per Hour',
             )
             fig.update_layout(showlegend=False)
@@ -61,6 +65,13 @@ if file:
             )
             df['Begin time'] = pd.to_datetime(df['Begin time'])
             df['both'] = df['Left(min)'] + df['Right(min)']
+
+            # totals
+            num_feeds = df.count()['both']
+            feed_mins = df.sum()['both']
+            st.text(f'Total feeds: {num_feeds}')
+            st.text(f'Total feed time: {np.round(feed_mins/60, 1)} hours')
+
 
             # plot feeds per day
             df['day'] = df['Begin time'].dt.round('D')
@@ -90,7 +101,7 @@ if file:
             dfg = df.groupby('hour').count()
             fig = px.bar(
                 dfg[['both']],
-                labels={'hour': 'Hour', 'value':'Count'},
+                labels={'hour': 'Hour of the Day', 'value':'Count'},
                 title='Feeds Per Hour',
             )
             fig.update_layout(showlegend=False)
