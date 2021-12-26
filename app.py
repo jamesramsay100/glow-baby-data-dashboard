@@ -36,6 +36,8 @@ if file:
                 labels={'day': 'Date', 'value':'Count'},
                 title='Changes Per Day',
             )
+            fig.update_layout(showlegend=False)
+            fig.update_traces(marker=dict(color="orange"))
             st.plotly_chart(fig)
             
             # plot nappy hours
@@ -46,6 +48,8 @@ if file:
                 labels={'hour': 'Hour', 'value':'Count'},
                 title='Changes Per Hour',
             )
+            fig.update_layout(showlegend=False)
+            fig.update_traces(marker=dict(color="orange"))
             st.plotly_chart(fig)
 
 
@@ -66,6 +70,8 @@ if file:
                 labels={'day': 'Date', 'value':'Count'},
                 title='Feeds Per Day',
             )
+            fig.update_layout(showlegend=False)
+            fig.update_traces(marker=dict(color="orange"))
             st.plotly_chart(fig)
 
             # plot total minutes per day
@@ -75,6 +81,8 @@ if file:
                 labels={'day': 'Date', 'value':'Time (mins)'},
                 title='Total Time Per Day',
             )
+            fig.update_layout(showlegend=False)
+            fig.update_traces(marker=dict(color="orange"))
             st.plotly_chart(fig)
 
             # plot feeds per hour
@@ -85,6 +93,8 @@ if file:
                 labels={'hour': 'Hour', 'value':'Count'},
                 title='Feeds Per Hour',
             )
+            fig.update_layout(showlegend=False)
+            fig.update_traces(marker=dict(color="orange"))
             st.plotly_chart(fig)
 
 
